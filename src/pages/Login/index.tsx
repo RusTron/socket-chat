@@ -11,15 +11,27 @@ const LoginWrapper = styled.div`
   align-items: center;
 `
 
+const Input = styled(Form.Input)`
+  width: 300px;
+`
+
+const FormWrapper = styled(Form)`
+background-color: red;
+`
 export const Login = () => {
+
+  const inputStyles = {
+    width: '300px',
+  }
+
   return (
     <LoginWrapper>
       <Headings tag={HeadingType.h1}>
         Enter your name
       </Headings>
-      <Form>
-        <Form.Input/>
-      </Form>
+      <FormWrapper>
+        <Input styles={inputStyles}/>
+      </FormWrapper>
     </LoginWrapper>
   );
 }
