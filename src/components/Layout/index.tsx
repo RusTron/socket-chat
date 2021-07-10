@@ -7,16 +7,16 @@ const LayoutBase = styled.div`
   height: 100%;
   max-width: 1280px;
   border: 1px solid #009bb7;
-  border-bottom: none;
   margin: 0 auto;
 `
 
 interface Props {
-  children: React.ReactNode
+  children: React.ReactNode;
+  styles?: React.CSSProperties;
 }
 
-const Layout = ({ children }: Props) => (
-  <LayoutBase>{children}</LayoutBase>
+const Layout = ({ children, styles }: Props) => (
+  <LayoutBase style={styles}>{children}</LayoutBase>
 );
 
 Layout.Header = Header;

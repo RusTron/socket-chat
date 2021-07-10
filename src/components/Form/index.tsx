@@ -1,12 +1,12 @@
-import { ChangeEvent, FormEvent } from 'react';
-import { SyntheticEvent } from 'react';
+import {FormEvent } from 'react';
 import { Input } from './Input';
 
 interface Props {
   children: React.ReactNode
+  styles?: React.CSSProperties;
 }
 
-const Form = ({ children }: Props):JSX.Element => {
+const Form = ({ children, styles }: Props):JSX.Element => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -14,7 +14,7 @@ const Form = ({ children }: Props):JSX.Element => {
   };
 
   return (
-  <form onSubmit={handleSubmit}>{children}</form>
+  <form onSubmit={handleSubmit} style={styles}>{children}</form>
 )}
 
 Form.Input = Input;

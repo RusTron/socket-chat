@@ -5,6 +5,11 @@ const LayoutHeader = styled.div`
   background-color: #009bb7;
 `
 
-export const Header: React.FC = ({ children }) => (
-    <LayoutHeader>{children}</LayoutHeader>
+interface Props {
+  children: React.ReactNode;
+  styles?: React.CSSProperties;
+}
+
+export const Header = ({ children, styles }: Props) => (
+    <LayoutHeader style={styles}>{children}</LayoutHeader>
   );
