@@ -1,5 +1,5 @@
-import { ChangeEvent, useState } from "react";
-import styled from "styled-components";
+import React, { ChangeEvent, useState } from 'react';
+import styled from 'styled-components';
 
 const StyledInput = styled.input`
   height: 30px;
@@ -23,7 +23,7 @@ interface Props {
 }
 
 export const Input = ({ styles }: Props) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value.trim());
@@ -35,6 +35,6 @@ export const Input = ({ styles }: Props) => {
       onChange={handleChange}
       value={value}
       style={styles}
-    ></StyledInput>
+    />
   );
 };

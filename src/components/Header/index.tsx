@@ -1,4 +1,5 @@
-import styled from "styled-components"
+import React from 'react';
+import styled from 'styled-components';
 
 const HeaderWrapper = styled.div`
   height: 100%;
@@ -13,12 +14,6 @@ const HeaderWrapper = styled.div`
     cursor: pointer;
     color: #dff;
   }
-`
+`;
 
-export const Header = () => {
-  return (
-    <HeaderWrapper>
-      Log in
-    </HeaderWrapper>
-  )
-}
+export const Header = () => <HeaderWrapper>Log in</HeaderWrapper>;

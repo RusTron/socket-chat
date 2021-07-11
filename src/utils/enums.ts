@@ -7,3 +7,8 @@ export enum HeadingType {
   h6 = 'h6',
   p = 'p'
 }
+
+export enum Log {
+  in = 'Log in',
+  out = 'Log out'
+}

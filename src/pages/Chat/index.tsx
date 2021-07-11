@@ -1,3 +1,3 @@
-export const Chat = () => {
-  return <div></div>
-}
+import React from 'react';
+
+export const Chat = () => <div />;
