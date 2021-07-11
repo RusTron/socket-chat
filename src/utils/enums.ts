@@ -12,3 +12,7 @@ export enum Log {
   in = 'Log in',
   out = 'Log out'
 }
+
+export enum ActionTypes {
+  SET_OUR_NAME,
+ }
