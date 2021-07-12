@@ -1,5 +1,12 @@
 import React, { ReactNode, FormEvent, CSSProperties } from 'react';
+import styled from 'styled-components';
 import { Input } from './Input';
+import { PrimaryButton } from './PrimaryButton';
+import { Textarea } from './Textarea';
+
+const StyledForm = styled.form`
+  display: flex;
+`;
 
 interface Props {
   children: ReactNode;
@@ -8,11 +15,13 @@ interface Props {
 }
 
 const Form = ({ children, onSubmit, styles }: Props) => (
-  <form onSubmit={onSubmit} style={styles}>
+  <StyledForm onSubmit={onSubmit} style={styles}>
     {children}
-  </form>
+  </StyledForm>
 );
 
 Form.Input = Input;
+Form.Button = PrimaryButton;
+Form.Textarea = Textarea;
 
 export { Form };

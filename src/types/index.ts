@@ -5,3 +5,7 @@ export interface StateType {
   loginStatus: boolean,
   typing: object | null,
 }
+
+export interface SocketStoreType {
+  socket: WebSocket | null;
+}

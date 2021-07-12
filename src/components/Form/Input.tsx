@@ -26,7 +26,7 @@ export const Input = ({ styles }: Props) => {
   const [value, setValue] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value.trim());
+    setValue(e.target.value.trimLeft());
   };
 
   return (

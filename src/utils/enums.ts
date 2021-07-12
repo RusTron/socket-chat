@@ -16,3 +16,14 @@ export enum Log {
 export enum ActionTypes {
   SET_OUR_NAME,
  }
+
+export enum ButtonType {
+  button = 'button',
+  submit = 'submit',
+  reset = 'reset',
+}
+
+export enum FlexDirectionTypes {
+  column = 'column',
+  row = 'row',
+}

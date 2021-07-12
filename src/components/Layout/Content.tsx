@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const LayoutContent = styled.div`
-  height: 100%;
+  height: calc(100% - 93px);
 `;
 
 interface Props {
