@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Input } from './Input';
 import { PrimaryButton } from './PrimaryButton';
 import { Textarea } from './Textarea';
+import { SendButton } from './SendButton';
 
 const StyledForm = styled.form`
   display: flex;
@@ -23,5 +24,6 @@ const Form = ({ children, onSubmit, styles }: Props) => (
 Form.Input = Input;
 Form.Button = PrimaryButton;
 Form.Textarea = Textarea;
+Form.SendButton = SendButton;
 
 export { Form };

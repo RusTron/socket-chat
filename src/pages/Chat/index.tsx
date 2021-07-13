@@ -1,38 +1,61 @@
-import React, { useEffect } from 'react';
+import React, {
+  useState, useEffect,
+} from 'react';
 import { withRouter } from 'react-router-dom';
-import { socket } from '../../socket';
+import styled from 'styled-components';
+import { socketStore } from '../../socket';
+import Form from '../../components/ChatTextareaForm';
+
+const ChatWrapper = styled.div`
+  height: 100%;
+`;
+
+const Thread = styled.div`
+  height: calc(100% - 62px);
+`;
 
 const Chat = () => {
-  const conc = (text: any) => {
-    console.log(text);
-  };
+  const [isMessagingStarted, setIsMessagingStarted] = useState(false);
 
-  const sendDefaultMessage = () => {
-    socket.send('2');
+  const handleSocketMessage = (e: any, socket: WebSocket) => {
+    const messageIndex = e.data.match(/^(\d+)/)[0];
+    const messageData = e.data.replace(/^(\d+)/, '');
+    const messageType = messageData ? JSON.parse(messageData) : '';
+    console.log(messageType);
+    if (messageIndex === '3' && !isMessagingStarted) {
+      socket.send('5');
+      const data = JSON.stringify(['add user', 'James']);
+      socket.send(`42${data}`);
+      setIsMessagingStarted(true);
+    }
   };
 
   useEffect(() => {
-    socket.onopen = () => {
-      conc('connected');
+    const { socket } = socketStore;
+    if (!socket) return;
+
+    socket.onmessage = (e) => {
+      handleSocketMessage(e, socket);
     };
 
     socket.onclose = () => {
-      conc('closed');
+      console.log('closed');
     };
 
-    setTimeout(sendDefaultMessage, 20000);
+    const interval = setInterval(() => socket.send('2'), 20000);
+
+    // eslint-disable-next-line consistent-return
+    return () => {
+      clearInterval(interval);
+      socket.close();
+    };
   }, []);
 
-  const handleSocketMessage = (e: any) => {
-    console.log(e);
-  };
-
-  socket.onmessage = (e) => {
-    handleSocketMessage(e);
-  };
-
   return (
-    <div>Hello World</div>
+    <ChatWrapper>
+      <Thread />
+      <Form />
+    </ChatWrapper>
   );
 };
 

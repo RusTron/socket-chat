@@ -19,3 +19,7 @@ export const formStyles = {
   display: 'flex',
   flexDirection: FlexDirectionTypes.column,
 };
+
+export const textareaStyles = {
+  padding: '21px 0 22px 24px',
+};
