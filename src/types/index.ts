@@ -8,4 +8,6 @@ export interface StateType {
 
 export interface SocketStoreType {
   socket: WebSocket | null;
+  connection: boolean;
+  firstMessage: boolean;
 }

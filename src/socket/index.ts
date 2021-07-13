@@ -2,6 +2,8 @@ import { SocketStoreType } from '../types';
 
 export const socketStore: SocketStoreType = {
   socket: null,
+  connection: false,
+  firstMessage: true,
 };
 
 export const createSocket = () => {

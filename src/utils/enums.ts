@@ -15,6 +15,10 @@ export enum Log {
 
 export enum ActionTypes {
   SET_OUR_NAME,
+  SET_NEW_MESSAGE,
+  SET_FIRST_MESSAGE,
+  SET_TYPING,
+  SET_STOP_TYPING,
  }
 
 export enum ButtonType {

@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { socketStore } from '../../socket';
 import Form from '../../components/ChatTextareaForm';
+import { AppContext } from '../../context';
+import { ActionTypes } from '../../utils/enums';
 
 const ChatWrapper = styled.div`
   height: 100%;
@@ -13,18 +15,33 @@ const Thread = styled.div`
 `;
 
 const Chat = () => {
-  const [isMessagingStarted, setIsMessagingStarted] = useState(false);
+  const { state: { ourName, messages }, dispatch } = useContext(AppContext);
+  console.log(messages);
 
-  const handleSocketMessage = (e: any, socket: WebSocket) => {
+  const handleSocketMessage = (e: any, socket: WebSocket): void => {
     const messageIndex = e.data.match(/^(\d+)/)[0];
     const messageData = e.data.replace(/^(\d+)/, '');
-    const messageType = messageData ? JSON.parse(messageData) : '';
-    console.log(messageType);
-    if (messageIndex === '3' && !isMessagingStarted) {
+    const message = messageData ? JSON.parse(messageData) : '';
+    console.log(message);
+    if (messageIndex === '3' && !socketStore.connection) {
       socket.send('5');
-      const data = JSON.stringify(['add user', 'James']);
+      const data = JSON.stringify(['add user', ourName]);
       socket.send(`42${data}`);
-      setIsMessagingStarted(true);
+      socketStore.connection = true;
+    } else if (messageIndex === '42' && socketStore.connection) {
+      if (!socketStore.firstMessage) {
+        dispatch({
+          type: ActionTypes.SET_NEW_MESSAGE,
+          payload: message,
+        });
+        return;
+      }
+
+      dispatch({
+        type: ActionTypes.SET_FIRST_MESSAGE,
+        payload: message,
+      });
+      socketStore.firstMessage = false;
     }
   };
 
@@ -45,6 +62,8 @@ const Chat = () => {
     return () => {
       clearInterval(interval);
       socket.close();
+      socketStore.connection = false;
+      socketStore.firstMessage = true;
     };
   }, []);
 

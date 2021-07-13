@@ -13,6 +13,16 @@ export const reducer: Reducer<StateType, Action> = (
         ...state,
         ourName: action.payload,
       };
+    case ActionTypes.SET_NEW_MESSAGE:
+      return {
+        ...state,
+        messages: [...state.messages, action.payload],
+      };
+    case ActionTypes.SET_FIRST_MESSAGE:
+      return {
+        ...state,
+        messages: [action.payload],
+      };
     default:
       return state;
   }
