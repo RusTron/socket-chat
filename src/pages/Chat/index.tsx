@@ -1,6 +1,4 @@
-import React, {
-  useState, useEffect,
-} from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { socketStore } from '../../socket';
@@ -44,7 +42,6 @@ const Chat = () => {
 
     const interval = setInterval(() => socket.send('2'), 20000);
 
-    // eslint-disable-next-line consistent-return
     return () => {
       clearInterval(interval);
       socket.close();
