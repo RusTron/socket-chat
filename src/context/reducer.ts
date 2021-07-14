@@ -1,4 +1,5 @@
 import { Reducer } from 'react';
+import moment from 'moment';
 import { StateType } from 'src/types';
 import { ActionTypes } from 'src/utils/enums';
 import { firstMessage } from 'src/utils/constants';
@@ -15,7 +16,7 @@ export const reducer: Reducer<StateType, Action> = (state: StateType = initialSt
     case ActionTypes.SET_NEW_MESSAGE:
       return {
         ...state,
-        messages: state.messages.length ? [...state.messages, action.payload] : [action.payload],
+        messages: [...state.messages, [action.payload[0], { ...action.payload[1], time: moment().format('HH:mm') }]],
       };
     case ActionTypes.SET_FIRST_MESSAGE:
       return {
@@ -44,6 +45,11 @@ export const reducer: Reducer<StateType, Action> = (state: StateType = initialSt
         typing: state.typing.length
           ? state.typing.filter((user) => user[1].username === action.payload[1].username)
           : [],
+        messages: state.messages.length ? [...state.messages, action.payload] : [action.payload],
+      };
+    case ActionTypes.SET_USER_JOIN:
+      return {
+        ...state,
         messages: state.messages.length ? [...state.messages, action.payload] : [action.payload],
       };
     case ActionTypes.SET_CLEAR_DATA:

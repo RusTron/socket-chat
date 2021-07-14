@@ -2,7 +2,7 @@ import { ActionTypes } from 'src/utils/enums';
 
 export interface StateType {
   ourName: string;
-  messages: Array<UpdatedLoginMessage | NewMessage | UserLeft | UserJoin>;
+  messages: Array<MessageType>;
   loginStatus: boolean;
   typing: Array<MessageTyping>;
 }
@@ -19,8 +19,12 @@ interface MessageBaseObject {
   username: string;
 }
 
-interface NewMessageType extends MessageBaseObject {
+interface NewMessageTypeForStore extends MessageBaseObject{
   message: string;
+}
+
+export interface NewMessageType extends NewMessageTypeForStore {
+  time: string;
 }
 
 interface UserLeftOrJoinedType extends MessageBaseObject {
@@ -40,3 +44,7 @@ export interface SocketStoreType {
 export interface actionsForDispatchTypes {
   [key: string]: string;
 }
+
+export type MessageType = UpdatedLoginMessage | NewMessage | UserLeft | UserJoin;
+
+export type NotificationType = UpdatedLoginMessage | UserLeft | UserJoin;

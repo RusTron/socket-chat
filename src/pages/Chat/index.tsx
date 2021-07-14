@@ -3,16 +3,13 @@ import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import { socketStore } from 'src/socket';
 import Form from 'src/components/ChatTextareaForm';
+import Thread from 'src/components/MessageList';
 import { AppContext } from 'src/context';
 import { ActionTypes } from 'src/utils/enums';
 import { actionsForDispatch } from 'src/utils/constants';
 
 const ChatWrapper = styled.div`
   height: 100%;
-`;
-
-const Thread = styled.div`
-  height: calc(100% - 62px);
 `;
 
 const Chat = () => {
@@ -61,6 +58,9 @@ const Chat = () => {
       socket.close();
       socketStore.connection = false;
       socketStore.firstMessage = true;
+      dispatch({
+        type: ActionTypes.SET_CLEAR_DATA,
+      });
     };
   }, []);
 

@@ -1,10 +1,14 @@
-import React, {
-  useState, useRef, FormEvent,
-} from 'react';
+import React, { useState, useRef, useContext, FormEvent } from 'react';
 import styled from 'styled-components';
-import { ButtonType } from 'src/utils/enums';
+import moment from 'moment';
+import { AppContext } from 'src/context';
+import { setNewMessage } from 'src/context/actions';
+// import { actionsForDispatch } from 'src/utils/constants';
+import { NewMessage } from 'src/types';
 import { ReactComponent as InActiveLabel } from 'src/assets/images/inactive.svg';
 import { ReactComponent as HalfLabel } from 'src/assets/images/half-label.svg';
+import { socketStore } from 'src/socket';
+import { ActionTypes, ButtonType } from 'src/utils/enums';
 import { Form } from './Form';
 
 const Label = styled.label`
@@ -41,18 +45,29 @@ const ChatTextareaForm = () => {
 
   const textarea = useRef<HTMLTextAreaElement>(null);
 
+  const {
+    state: { ourName },
+    dispatch,
+  } = useContext(AppContext);
+
   const addData = (e: FormEvent) => {
     e.preventDefault();
-    console.log(e);
+    if (!textarea.current) return;
+    const data = [
+      ActionTypes.SET_NEW_MESSAGE,
+      { username: ourName, message: textarea.current.value, time: moment().format('HH:mm') },
+    ];
+    dispatch(setNewMessage(data as NewMessage));
+    if (socketStore.socket) {
+      socketStore.socket.send(`42${JSON.stringify([ActionTypes.SET_NEW_MESSAGE, textarea.current.value])}`);
+    }
+    textarea.current.value = '';
   };
 
   return (
     <Form onSubmit={addData} styles={FormStyles}>
       <Form.Textarea ref={textarea} setButtonActive={setButtonActive} />
-      <Form.SendButton
-        type={ButtonType.submit}
-        styles={buttonActive ? buttonStyles : undefined}
-      >
+      <Form.SendButton type={ButtonType.submit} styles={buttonActive ? buttonStyles : undefined}>
         <Label>
           {buttonActive ? (
             <>
