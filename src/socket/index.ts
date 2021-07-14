@@ -1,4 +1,4 @@
-import { SocketStoreType } from '../types';
+import { SocketStoreType } from 'src/types';
 
 export const socketStore: SocketStoreType = {
   socket: null,

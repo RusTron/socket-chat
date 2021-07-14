@@ -2,10 +2,10 @@ import React, {
   useState, useRef, FormEvent,
 } from 'react';
 import styled from 'styled-components';
+import { ButtonType } from 'src/utils/enums';
+import { ReactComponent as InActiveLabel } from 'src/assets/images/inactive.svg';
+import { ReactComponent as HalfLabel } from 'src/assets/images/half-label.svg';
 import { Form } from './Form';
-import { ButtonType } from '../utils/enums';
-import { ReactComponent as InActiveLabel } from '../assets/images/inactive.svg';
-import { ReactComponent as HalfLabel } from '../assets/images/half-label.svg';
 
 const Label = styled.label`
   display: flex;

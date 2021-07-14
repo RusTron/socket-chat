@@ -1,4 +1,4 @@
-import { FlexDirectionTypes } from '../../utils/enums';
+import { FlexDirectionTypes } from 'src/utils/enums';
 
 export const inputStyles = {
   width: '300px',

@@ -1,12 +1,12 @@
 import React, { useContext, FormEvent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
-import { socketStore, createSocket } from '../../socket';
-import { AppContext } from '../../context';
-import { Form } from '../../components/Form';
-import { Headings } from '../../components/Headings';
+import { socketStore, createSocket } from 'src/socket';
+import { AppContext } from 'src/context';
+import { Form } from 'src/components/Form';
+import { Headings } from 'src/components/Headings';
+import { HeadingType, ActionTypes, ButtonType } from 'src/utils/enums';
 import { inputStyles, buttonStyles, formStyles } from './styles';
-import { HeadingType, ActionTypes, ButtonType } from '../../utils/enums';
 
 const LoginWrapper = styled.div`
   height: 100%;

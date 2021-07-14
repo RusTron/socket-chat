@@ -1,6 +1,6 @@
 import React, { ReactNode, CSSProperties } from 'react';
 import styled from 'styled-components';
-import { ButtonType } from '../../utils/enums';
+import { ButtonType } from 'src/utils/enums';
 
 const StyledButton = styled.button`
     width: 40px;

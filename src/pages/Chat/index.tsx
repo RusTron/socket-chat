@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import styled from 'styled-components';
-import { socketStore } from '../../socket';
-import Form from '../../components/ChatTextareaForm';
-import { AppContext } from '../../context';
-import { ActionTypes } from '../../utils/enums';
-import { actionsForDispatch } from '../../utils/constants';
+import { socketStore } from 'src/socket';
+import Form from 'src/components/ChatTextareaForm';
+import { AppContext } from 'src/context';
+import { ActionTypes } from 'src/utils/enums';
+import { actionsForDispatch } from 'src/utils/constants';
 
 const ChatWrapper = styled.div`
   height: 100%;

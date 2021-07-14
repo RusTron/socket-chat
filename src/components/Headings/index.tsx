@@ -1,5 +1,5 @@
 import { FC, createElement } from 'react';
-import { HeadingType } from '../../utils/enums';
+import { HeadingType } from 'src/utils/enums';
 
 interface Props {
   tag: Partial<HeadingType>
