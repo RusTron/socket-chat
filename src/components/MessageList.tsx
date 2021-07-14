@@ -21,6 +21,8 @@ const MessageList = styled.div`
   overflow-y: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  font-size: 16px;
+  position: relative;
 
   &::-webkit-scrollbar {
     width: 0;
@@ -28,10 +30,22 @@ const MessageList = styled.div`
   }
 `;
 
+const Typing = styled.div`
+  width: 100%;
+  padding: 0 50px 0;
+  text-align: end;
+  position: absolute;
+  bottom: 1px;
+`;
+
+const Dots = styled.strong`
+  letter-spacing: 2px;
+`;
+
 const Thread = () => {
   const messageList = useRef<HTMLDivElement>(null);
   const {
-    state: { ourName, messages },
+    state: { ourName, messages, typing },
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -48,6 +62,12 @@ const Thread = () => {
           )) || <Notification message={message as NotificationType} />,
         )}
       </MessageList>
+      {!!typing.length && (
+        <Typing>
+          {`${typing[typing.length - 1][1].username} is typing`}
+          <Dots>...</Dots>
+        </Typing>
+      )}
     </MessageListWrapper>
   );
 };

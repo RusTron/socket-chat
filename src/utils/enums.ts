@@ -13,6 +13,11 @@ export enum Log {
   out = 'Log out'
 }
 
+export enum Typing {
+  stop = 'stop typing',
+  start = 'typing'
+}
+
 export enum SocketActions {
   ping = '2',
   pong = '3',

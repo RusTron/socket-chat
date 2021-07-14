@@ -1,6 +1,8 @@
 import React, { useEffect, useContext } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
+import { toast } from 'react-toastify';
+import { Toastify } from 'src/components/Notificaations/Toastify';
 import { socketStore } from 'src/socket';
 import Form from 'src/components/ChatTextareaForm';
 import Thread from 'src/components/MessageList';
@@ -12,9 +14,10 @@ const ChatWrapper = styled.div`
   height: 100%;
 `;
 
-const Chat = () => {
+const Chat: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
   const { state: { ourName, messages, typing }, dispatch } = useContext(AppContext);
   console.log('messages', messages, 'typing', typing);
+  console.log(history, match, ourName);
 
   const handleSocketMessage = (e: any, socket: WebSocket): void => {
     const messageIndex = e.data.match(/^(\d+)/)[0];
@@ -39,19 +42,37 @@ const Chat = () => {
     }
   };
 
+  const handleSocketRequest = (socket: WebSocket) => {
+    try {
+      socket.send(SocketActions.ping);
+    } catch (e) {
+      toast('Connection closed');
+      setTimeout(() => history.push('/'), 5000);
+    }
+  };
+
   useEffect(() => {
     const { socket } = socketStore;
-    if (!socket) return;
+    if (!socket) {
+    // if (!socket || match.params.ourName !== ourName) {
+      // history.push('/');
+      return;
+    }
 
     socket.onmessage = (e) => {
       handleSocketMessage(e, socket);
     };
 
     socket.onclose = () => {
-      console.log('closed');
+      toast('Connection closed. Please refresh page!');
+      setTimeout(() => history.push('/'), 5000);
     };
 
-    const interval = setInterval(() => socket.send(SocketActions.ping), 20000);
+    socket.onerror = () => {
+      toast('Something went wrong! Please refresh page');
+    };
+
+    const interval = setInterval(() => handleSocketRequest(socket), 20000);
 
     return () => {
       clearInterval(interval);
@@ -66,6 +87,7 @@ const Chat = () => {
 
   return (
     <ChatWrapper>
+      <Toastify />
       <Thread />
       <Form />
     </ChatWrapper>

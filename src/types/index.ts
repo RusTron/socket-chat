@@ -39,6 +39,7 @@ export interface SocketStoreType {
   socket: WebSocket | null;
   connection: boolean;
   firstMessage: boolean;
+  typing: boolean;
 }
 
 export interface actionsForDispatchTypes {

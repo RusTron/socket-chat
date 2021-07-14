@@ -23,7 +23,6 @@ const Login = ({ history }: RouteComponentProps) => {
 
   const setSocketConnection = (ourName: string) => {
     createSocket();
-    console.warn(ourName);
     const { socket } = socketStore;
 
     if (!socket) return;

@@ -31,26 +31,23 @@ const StyledTextarea = styled.textarea`
 interface Props {
   styles?: React.CSSProperties;
   children?: React.ReactNode;
-  setButtonActive?: (state: boolean) => void;
+  onChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  value?: string
 }
 
 export const Textarea = React.forwardRef<HTMLTextAreaElement, Props>(
-  ({ children, styles, setButtonActive }, ref) => {
-    const [value, setValue] = useState('');
+  ({ children, styles, onChange, value }, ref) => {
+    const [query, setQuery] = useState('');
 
     const handleChange = (e: ChangeEvent<HTMLTextAreaElement>): void => {
-      setValue(e.target.value.trimLeft());
-
-      if (!setButtonActive) return;
-      if (e.target.value) setButtonActive(true);
-      else setButtonActive(false);
+      setQuery(e.target.value.trimLeft());
     };
 
     return (
       <StyledTextarea
         placeholder="Write a message"
-        value={value}
-        onChange={handleChange}
+        value={value || query}
+        onChange={onChange || handleChange}
         style={styles}
         ref={ref}
       >

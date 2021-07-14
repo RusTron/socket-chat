@@ -4,6 +4,7 @@ export const socketStore: SocketStoreType = {
   socket: null,
   connection: false,
   firstMessage: true,
+  typing: false,
 };
 
 export const createSocket = () => {
