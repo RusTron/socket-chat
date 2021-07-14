@@ -5,7 +5,7 @@ import { socketStore, createSocket } from 'src/socket';
 import { AppContext } from 'src/context';
 import { Form } from 'src/components/Form';
 import { Headings } from 'src/components/Headings';
-import { HeadingType, ActionTypes, ButtonType } from 'src/utils/enums';
+import { HeadingType, ActionTypes, ButtonType, SocketActions } from 'src/utils/enums';
 import { inputStyles, buttonStyles, formStyles } from './styles';
 
 const LoginWrapper = styled.div`
@@ -29,7 +29,7 @@ const Login = ({ history }: RouteComponentProps) => {
     if (!socket) return;
 
     socket.onopen = () => {
-      socket.send('2probe');
+      socket.send(`${SocketActions.ping}probe`);
       redirect(ourName);
     };
   };

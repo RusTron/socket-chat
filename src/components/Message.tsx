@@ -45,7 +45,6 @@ interface Props {
 }
 
 const Message: React.FC<Props> = ({ fromMe, message }) => {
-  console.log('gs');
   const { message: text, time, username } = message;
   return (
     <MessageWrapper fromMe={fromMe}>

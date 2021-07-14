@@ -3,12 +3,11 @@ import styled from 'styled-components';
 import moment from 'moment';
 import { AppContext } from 'src/context';
 import { setNewMessage } from 'src/context/actions';
-// import { actionsForDispatch } from 'src/utils/constants';
 import { NewMessage } from 'src/types';
 import { ReactComponent as InActiveLabel } from 'src/assets/images/inactive.svg';
 import { ReactComponent as HalfLabel } from 'src/assets/images/half-label.svg';
 import { socketStore } from 'src/socket';
-import { ActionTypes, ButtonType } from 'src/utils/enums';
+import { ActionTypes, ButtonType, SocketActions } from 'src/utils/enums';
 import { Form } from './Form';
 
 const Label = styled.label`
@@ -52,14 +51,20 @@ const ChatTextareaForm = () => {
 
   const addData = (e: FormEvent) => {
     e.preventDefault();
+
     if (!textarea.current) return;
+
     const data = [
       ActionTypes.SET_NEW_MESSAGE,
       { username: ourName, message: textarea.current.value, time: moment().format('HH:mm') },
     ];
+
     dispatch(setNewMessage(data as NewMessage));
+
     if (socketStore.socket) {
-      socketStore.socket.send(`42${JSON.stringify([ActionTypes.SET_NEW_MESSAGE, textarea.current.value])}`);
+      socketStore.socket.send(
+        `${SocketActions.message}${JSON.stringify([ActionTypes.SET_NEW_MESSAGE, textarea.current.value])}`,
+      );
     }
     textarea.current.value = '';
   };

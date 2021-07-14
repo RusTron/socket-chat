@@ -13,6 +13,13 @@ export enum Log {
   out = 'Log out'
 }
 
+export enum SocketActions {
+  ping = '2',
+  pong = '3',
+  connectionOpened = '5',
+  message = '42',
+}
+
 export enum ActionTypes {
   SET_OUR_NAME,
   SET_CLEAR_DATA,

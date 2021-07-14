@@ -22,7 +22,6 @@ const StyledTextarea = styled.textarea`
   }
 
   &::placeholder {
-    /* font-family: Arial; */
     font-size: 16px;
     line-height: 19px;
     color: #d7dbe6;
