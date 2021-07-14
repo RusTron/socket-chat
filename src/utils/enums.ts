@@ -15,10 +15,13 @@ export enum Log {
 
 export enum ActionTypes {
   SET_OUR_NAME,
-  SET_NEW_MESSAGE,
-  SET_FIRST_MESSAGE,
-  SET_TYPING,
-  SET_STOP_TYPING,
+  SET_CLEAR_DATA,
+  SET_NEW_MESSAGE = 'new message',
+  SET_FIRST_MESSAGE = 'login',
+  SET_TYPING = 'typing',
+  SET_STOP_TYPING = 'stop typing',
+  SET_USER_LEFT = 'user left',
+  SET_USER_JOIN = 'user joined',
  }
 
 export enum ButtonType {

@@ -10,12 +10,12 @@ interface ContextType {
   dispatch: Dispatch<ReturnedTypes>,
 }
 
-const initialState = {
+export const initialState = {
   ourName: '',
   messages: [],
   notifications: [],
   loginStatus: false,
-  typing: null,
+  typing: [],
 };
 
 export const AppContext = createContext<ContextType>({
