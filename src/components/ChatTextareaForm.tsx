@@ -56,10 +56,12 @@ const ChatTextareaForm = () => {
     dispatch,
   } = useContext(AppContext);
 
+  useEffect(() => {
+    if (textarea.current) textarea.current.focus();
+  }, []);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
-    if (!value) return;
 
     const data = [ActionTypes.SET_NEW_MESSAGE, { username: ourName, message: value, time: moment().format('HH:mm') }];
 

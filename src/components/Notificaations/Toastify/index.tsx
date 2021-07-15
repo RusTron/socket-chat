@@ -8,7 +8,7 @@ export const Toastify: FC = () => (
     toastClassName="toast-wrapper"
     bodyClassName="toast-body"
     progressClassName="progress"
-    autoClose={false}
+    autoClose={5000}
     pauseOnFocusLoss={false}
   />
 );

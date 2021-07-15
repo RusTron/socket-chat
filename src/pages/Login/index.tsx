@@ -1,4 +1,4 @@
-import React, { useContext, FormEvent } from 'react';
+import React, { useRef, useEffect, useContext, FormEvent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
@@ -19,6 +19,7 @@ const LoginWrapper = styled.div`
 `;
 
 const Login = ({ history }: RouteComponentProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const { dispatch } = useContext(AppContext);
 
   const redirect = (ourName: string) => history.push(`/${ourName}`);
@@ -40,6 +41,7 @@ const Login = ({ history }: RouteComponentProps) => {
 
     const ourName = ((e.target as HTMLFormElement).firstChild as HTMLInputElement).value;
     if (ourName.length > 20) return toast('The name is too long! Please enter no more then 20 characters');
+    if (!ourName.length) return toast('Please enter enter at least one character');
 
     dispatch({
       type: ActionTypes.SET_OUR_NAME,
@@ -49,12 +51,16 @@ const Login = ({ history }: RouteComponentProps) => {
     setSocketConnection(ourName);
   };
 
+  useEffect(() => {
+    if (inputRef.current) inputRef.current.focus();
+  }, []);
+
   return (
     <LoginWrapper>
       <Toastify />
       <Headings tag={HeadingType.h1}>Enter your name</Headings>
       <Form onSubmit={handleSubmit} styles={formStyles}>
-        <Form.Input styles={inputStyles} />
+        <Form.Input styles={inputStyles} ref={inputRef} />
         <Form.Button type={ButtonType.submit} text="Join" styles={buttonStyles} />
       </Form>
     </LoginWrapper>

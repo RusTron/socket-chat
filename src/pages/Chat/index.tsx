@@ -12,6 +12,7 @@ import { actionsForDispatch } from 'src/utils/constants';
 
 const ChatWrapper = styled.div`
   height: 100%;
+  transform: rotate(0);
 `;
 
 const Chat: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
@@ -85,11 +86,13 @@ const Chat: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
   }, []);
 
   return (
-    <ChatWrapper>
+    <>
       <Toastify />
-      <Thread />
-      <Form />
-    </ChatWrapper>
+      <ChatWrapper>
+        <Thread />
+        <Form />
+      </ChatWrapper>
+    </>
   );
 };
 

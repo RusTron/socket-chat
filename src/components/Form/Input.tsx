@@ -21,8 +21,7 @@ const StyledInput = styled.input`
 interface Props {
   styles?: React.CSSProperties;
 }
-
-export const Input = ({ styles }: Props) => {
+export const Input = React.forwardRef<HTMLInputElement, Props>(({ styles }, ref) => {
   const [value, setValue] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +34,7 @@ export const Input = ({ styles }: Props) => {
       onChange={handleChange}
       value={value}
       style={styles}
+      ref={ref}
     />
   );
-};
+});

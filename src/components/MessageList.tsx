@@ -15,7 +15,6 @@ const MessageListWrapper = styled.div`
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
-  transform: rotate(0);
 
   ::-webkit-scrollbar-track {
     background-color: #e8ecf4;
@@ -46,6 +45,7 @@ const Typing = styled.div`
   text-align: end;
   position: fixed;
   right: -10px;
+  bottom: 62px;
 `;
 
 const Dots = styled.strong`
@@ -71,13 +71,13 @@ const Thread = () => {
             <Message fromMe={message[1].username === ourName} message={message[1]} />
           )) || <Notification message={message as NotificationType} />,
         )}
-        {!!typing.length && (
-          <Typing>
-            {`${typing[typing.length - 1][1].username} is typing`}
-            <Dots>...</Dots>
-          </Typing>
-        )}
       </MessageList>
+      {!!typing.length && (
+        <Typing>
+          {`${typing[typing.length - 1][1].username} is typing`}
+          <Dots>...</Dots>
+        </Typing>
+      )}
     </MessageListWrapper>
   );
 };
