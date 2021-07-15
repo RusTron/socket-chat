@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from 'src/context';
 import styled from 'styled-components';
 
 const HeaderWrapper = styled.div`
@@ -16,4 +17,11 @@ const HeaderWrapper = styled.div`
   }
 `;
 
-export const Header = () => <HeaderWrapper>Log in</HeaderWrapper>;
+export const Header = () => {
+  const { state: { ourName } } = useContext(AppContext);
+  return ourName ? (
+    <HeaderWrapper>{`Hello ${ourName}`}</HeaderWrapper>)
+    : (
+      <HeaderWrapper>Log in</HeaderWrapper>
+    );
+};

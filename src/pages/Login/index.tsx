@@ -1,6 +1,8 @@
 import React, { useContext, FormEvent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
+import { toast } from 'react-toastify';
+import { Toastify } from 'src/components/Notificaations/Toastify';
 import { socketStore, createSocket } from 'src/socket';
 import { AppContext } from 'src/context';
 import { Form } from 'src/components/Form';
@@ -37,6 +39,7 @@ const Login = ({ history }: RouteComponentProps) => {
     e.preventDefault();
 
     const ourName = ((e.target as HTMLFormElement).firstChild as HTMLInputElement).value;
+    if (ourName.length > 20) return toast('The name is too long! Please enter no more then 20 characters');
 
     dispatch({
       type: ActionTypes.SET_OUR_NAME,
@@ -48,6 +51,7 @@ const Login = ({ history }: RouteComponentProps) => {
 
   return (
     <LoginWrapper>
+      <Toastify />
       <Headings tag={HeadingType.h1}>Enter your name</Headings>
       <Form onSubmit={handleSubmit} styles={formStyles}>
         <Form.Input styles={inputStyles} />

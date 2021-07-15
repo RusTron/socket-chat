@@ -15,24 +15,23 @@ const ChatWrapper = styled.div`
 `;
 
 const Chat: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
-  const { state: { ourName, messages, typing }, dispatch } = useContext(AppContext);
-  console.log('messages', messages, 'typing', typing);
-  console.log(history, match, ourName);
+  const { state: { ourName }, dispatch } = useContext(AppContext);
 
   const handleSocketMessage = (e: any, socket: WebSocket): void => {
     const messageIndex = e.data.match(/^(\d+)/)[0];
     const messageData = e.data.replace(/^(\d+)/, '');
     const message = messageData ? JSON.parse(messageData) : '';
+    const { connection } = socketStore;
 
-    if (messageIndex === SocketActions.pong && !socketStore.connection) {
+    if (messageIndex === SocketActions.pong && !connection) {
       socket.send(SocketActions.connectionOpened);
       const data = JSON.stringify(['add user', ourName]);
       socket.send(`${SocketActions.message}${data}`);
       socketStore.connection = true;
-    } else if (messageIndex === SocketActions.message && socketStore.connection) {
+    } else if (messageIndex === SocketActions.message && connection) {
       const action = message[0].replace(/ /, '_');
 
-      if (!actionsForDispatch[action]) return;
+      if (!actionsForDispatch[action] || (!message[1].username && !message[1].numUsers)) return;
       dispatch({
         type: actionsForDispatch[action] as Partial<ActionTypes>,
         payload: message,
@@ -53,9 +52,8 @@ const Chat: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
 
   useEffect(() => {
     const { socket } = socketStore;
-    if (!socket) {
-    // if (!socket || match.params.ourName !== ourName) {
-      // history.push('/');
+    if (!socket || match.params.ourName !== ourName) {
+      history.push('/');
       return;
     }
 
@@ -70,6 +68,7 @@ const Chat: React.FC<RouteComponentProps<any>> = ({ history, match }) => {
 
     socket.onerror = () => {
       toast('Something went wrong! Please refresh page');
+      setTimeout(() => history.push('/'), 5000);
     };
 
     const interval = setInterval(() => handleSocketRequest(socket), 20000);

@@ -7,7 +7,7 @@ const LayoutBase = styled.div`
   width: 100%;
   height: 100%;
   max-width: 1280px;
-  border: 1px solid #009bb7;
+  box-shadow: 0 0 5px rgb(0 0 0 / 25%);
   margin: 0 auto;
 `;
 

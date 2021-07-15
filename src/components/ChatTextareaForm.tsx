@@ -16,6 +16,10 @@ const Label = styled.label`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const SecondHalfLabel = styled(HalfLabel)`
